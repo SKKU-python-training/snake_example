@@ -20,13 +20,13 @@
 # This code only needs to be run once after startup.
 
 # %%
-# Jupyter 내부에서 shell command 실행을 위해 '!'를 사용하여 'pip'를 실행합니다.
-# Insert `!` before running 'pip' command for running shell commands on Jupyter
-# !pip install pygame
+# Jupyter 내부에서 shell command 실행을 위해 '%'를 사용하여 'pip'를 실행합니다.
+# Insert `%` before running 'pip' command for running shell commands on Jupyter
+# %pip install pygame
 
 # %%
 # Python으로 실행하고 싶으시다면 위 코드를 삭제하시고 아래의 코드를 실행해주세요.
-# Delete the '!pip' code and run this code if you want to run on python
+# Delete the '%pip' code and run this code if you want to run on python
 import sys
 import subprocess
 subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pygame'])
@@ -129,6 +129,26 @@ def Init(size):
 
 
 # %%
+# Score
+def show_score(window, size, choice, color, font, fontsize):
+    # Score를 띄우기 위한 설정입니다.
+    # Settings for showing score on screen
+    score_font = pygame.font.SysFont(font, fontsize)
+    score_surface = score_font.render('Score : ' + str(score), True, color)
+    score_rect = score_surface.get_rect()
+
+    # Game over 상황인지 게임중 상황인지에 따라 다른 위치를 선정합니다.
+    # Select different location depending on the situation.
+    if choice == 1:
+        score_rect.midtop = (size[0]/10, 15)
+    else:
+        score_rect.midtop = (size[0]/2, size[1]/1.25)
+
+    # 설정한 글자를 window에 복사합니다.
+    # Copy the string to windows
+    window.blit(score_surface, score_rect)
+
+# %%
 # Game Over
 def game_over(window, size):
     # 'Game Over'문구를 띄우기 위한 설정입니다.
@@ -156,27 +176,6 @@ def game_over(window, size):
     time.sleep(3)
     pygame.quit()
     sys.exit()
-
-
-# %%
-# Score
-def show_score(window, size, choice, color, font, fontsize):
-    # Score를 띄우기 위한 설정입니다.
-    # Settings for showing score on screen
-    score_font = pygame.font.SysFont(font, fontsize)
-    score_surface = score_font.render('Score : ' + str(score), True, color)
-    score_rect = score_surface.get_rect()
-
-    # Game over 상황인지 게임중 상황인지에 따라 다른 위치를 선정합니다.
-    # Select different location depending on the situation.
-    if choice == 1:
-        score_rect.midtop = (size[0]/10, 15)
-    else:
-        score_rect.midtop = (size[0]/2, size[1]/1.25)
-
-    # 설정한 글자를 window에 복사합니다.
-    # Copy the string to windows
-    window.blit(score_surface, score_rect)
 
 
 # %%
